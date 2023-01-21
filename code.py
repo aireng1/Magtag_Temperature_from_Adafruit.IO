@@ -28,10 +28,15 @@ while True:
         #Read and print the Battery voltage
     battery_level = magtag.peripherals.battery
     battery_level = round(battery_level, 2)
+    battery_percent = (battery_level - 3.3) / (4.2-3.3) * 100
+    battery_percent = round(battery_percent)
     print (f"Battery Voltage:{battery_level}")
         # Check if the light level is below the threshold
     if light_level < light_threshold:
-
+        ## Set background sleeping picture
+        #magtag.set_background("/bmps/sleeping.bmp")
+        ##Refresh display
+        #magtag.display.refresh()
         print("Going to sleep...")
         time.sleep(2)
         print("sleeping for 1 hour")
@@ -71,7 +76,7 @@ while True:
             print(f"Error getting feed, {err}")
 
         while True:
-
+           # temperature = ""
 
             temperature = (io.receive_data("temperature")["value"])
             if isinstance(temperature, str):
@@ -93,13 +98,12 @@ while True:
             )
             magtag.add_text(
             text_font="/fonts/Arial-Italic-12.bdf",
-            #This makes the text appear in the top right
             text_position=(magtag.graphics.display.width // 1.2, 10),
             text_anchor_point=(0.1, 0.5),  # left justify this line
         )
-            # This will print text and the feed value
+            # This will print feed value and battery percent
             message = f"{rounded_temp}"
-            message2 = f"{battery_level}"
+            message2 = f"{battery_percent}%"
             magtag.set_text(message, 0)
             magtag.set_text(message2, 1)
 
