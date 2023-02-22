@@ -20,7 +20,7 @@ magtag = MagTag()
 light_pin = board.LIGHT
 
 ## Set the threshold for deep sleep (e.g. if light level is below this value, go to sleep)
-light_threshold = 500
+light_threshold = 360
 while True:
         # Read and print the light level
     light_level = magtag.peripherals.light
